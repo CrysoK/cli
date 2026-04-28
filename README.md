@@ -45,11 +45,6 @@ Add the following to your `~/.bashrc` or `~/.zshrc`:
 
 ```bash
 export GITHUB_TOKEN="your_token_here"
-```
-
-Then run:
-
-```bash
 curl -fsSL https://raw.githubusercontent.com/CrysoK/cli/main/install.sh | sh
 ```
 
