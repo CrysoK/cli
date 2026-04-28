@@ -89,7 +89,7 @@ function Get-Spicetify {
       if ($env:GITHUB_TOKEN) {
         $Headers["Authorization"] = "Bearer $($env:GITHUB_TOKEN)"
       }
-      $latestRelease = Invoke-RestMethod -Uri 'https://api.github.com/repos/spicetify/cli/releases/latest' -Headers $Headers
+      $latestRelease = Invoke-RestMethod -Uri 'https://api.github.com/repos/CrysoK/cli/releases/latest' -Headers $Headers
       $targetVersion = $latestRelease.tag_name -replace 'v', ''
       Write-Success
     }
@@ -98,7 +98,7 @@ function Get-Spicetify {
   process {
     Write-Host -Object "Downloading spicetify v$targetVersion..." -NoNewline
     $Parameters = @{
-      Uri            = "https://github.com/spicetify/cli/releases/download/v$targetVersion/spicetify-$targetVersion-windows-$architecture.zip"
+      Uri            = "https://github.com/CrysoK/cli/releases/download/v$targetVersion/spicetify-$targetVersion-windows-$architecture.zip"
       UseBasicParsin = $true
       OutFile        = $archivePath
     }
