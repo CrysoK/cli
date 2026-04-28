@@ -85,7 +85,11 @@ function Get-Spicetify {
     }
     else {
       Write-Host -Object 'Fetching the latest spicetify version...' -NoNewline
-      $latestRelease = Invoke-RestMethod -Uri 'https://api.github.com/repos/spicetify/cli/releases/latest'
+      $Headers = @{}
+      if ($env:GITHUB_TOKEN) {
+        $Headers["Authorization"] = "Bearer $($env:GITHUB_TOKEN)"
+      }
+      $latestRelease = Invoke-RestMethod -Uri 'https://api.github.com/repos/spicetify/cli/releases/latest' -Headers $Headers
       $targetVersion = $latestRelease.tag_name -replace 'v', ''
       Write-Success
     }

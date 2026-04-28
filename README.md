@@ -11,6 +11,57 @@
 Command-line tool to customize the official Spotify client.
 Supports Windows, MacOS and Linux.
 
+---
+
+### About this Fork
+
+This fork was created to solve GitHub API rate limiting issues. It adds support for the `GITHUB_TOKEN` environment variable in the Go backend and installation scripts, allowing for authenticated API calls to bypass IP-based rate limits.
+
+### How to use
+
+To use your GitHub token and bypass rate limits, set the `GITHUB_TOKEN` environment variable before running the installation script or using the CLI:
+
+#### Windows (PowerShell)
+
+**Persistent (Recommended):**
+
+```powershell
+[System.Environment]::SetEnvironmentVariable('GITHUB_TOKEN', 'your_token_here', 'User')
+# Restart your terminal after running this
+iwr -useb https://raw.githubusercontent.com/CrysoK/cli/main/install.ps1 | iex
+```
+
+**Temporary:**
+
+```powershell
+$env:GITHUB_TOKEN = "your_token_here"
+iwr -useb https://raw.githubusercontent.com/CrysoK/cli/main/install.ps1 | iex
+```
+
+#### Linux / macOS
+
+**Persistent (Recommended):**
+Add the following to your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+export GITHUB_TOKEN="your_token_here"
+```
+
+Then run:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CrysoK/cli/main/install.sh | sh
+```
+
+**Temporary:**
+
+```bash
+export GITHUB_TOKEN="your_token_here"
+curl -fsSL https://raw.githubusercontent.com/CrysoK/cli/main/install.sh | sh
+```
+
+---
+
 <img src=".github/assets/logo.png" alt="img" align="right" width="560px" height="400px">
 
 ### Features

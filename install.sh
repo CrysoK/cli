@@ -54,7 +54,12 @@ command -v grep >/dev/null || { log "grep isn't installed!" >&2; exit 1; }
 # download uri
 releases_uri=https://github.com/spicetify/cli/releases
 if [ -z "$tag" ]; then
-    tag=$(curl -LsH 'Accept: application/json' $releases_uri/latest)
+    AUTH_HEADER=""
+    if [ -n "$GITHUB_TOKEN" ]; then
+        AUTH_HEADER="-H \"Authorization: Bearer $GITHUB_TOKEN\""
+    fi
+    # shellcheck disable=SC2086
+    tag=$(curl -LsH 'Accept: application/json' $AUTH_HEADER $releases_uri/latest)
     tag=${tag%\,\"update_url*}
     tag=${tag##*tag_name\":\"}
     tag=${tag%\"}
