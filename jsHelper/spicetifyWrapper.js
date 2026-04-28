@@ -335,14 +335,22 @@ window.Spicetify = {
 		const symbolName = key.description;
 		if (symbolName === "ExclusiveModeAPI" && os === "Linux") continue;
 		if (Object.hasOwn(Spicetify.Platform, symbolName)) continue;
-		try {
-			const resolvedAPI = Spicetify.Platform.Registry.resolve(key);
-			Spicetify.Platform[symbolName] = resolvedAPI;
 
-			console.debug(`[spicetifyWrapper] Resolved PlatformAPI from Registry: ${symbolName}`);
-		} catch (err) {
-			console.error(`[spicetifyWrapper] Error resolving PlatformAPI from Registry: ${symbolName}`, err);
-		}
+		let resolvedAPI;
+		Object.defineProperty(Spicetify.Platform, symbolName, {
+			get: () => {
+				if (resolvedAPI) return resolvedAPI;
+				try {
+					resolvedAPI = Spicetify.Platform.Registry.resolve(key);
+					return resolvedAPI;
+				} catch (err) {
+					console.error(`[spicetifyWrapper] Error resolving PlatformAPI from Registry: ${symbolName}`, err);
+					return undefined;
+				}
+			},
+			enumerable: true,
+			configurable: true,
+		});
 	}
 })();
 
@@ -465,7 +473,8 @@ applyScrollingFix();
 					}
 				}
 
-				const Authorization = `Bearer ${Spicetify.Platform.AuthorizationAPI.getState().token.accessToken}`;
+				const token = Spicetify.Platform.AuthorizationAPI?.getState?.()?.token?.accessToken;
+				const Authorization = token ? `Bearer ${token}` : "";
 				let injectedHeaders = {};
 				if (isWebAPI) injectedHeaders = { Authorization };
 				if (isSpClientAPI) {
