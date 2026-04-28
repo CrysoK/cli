@@ -501,7 +501,7 @@ upgrade|update      Update spicetify to the latest version if an update is avail
 -v, --version       Print version number and quit
 
 For config information, run "spicetify -h config".
-For more information and reporting bugs: https://github.com/spicetify/cli/`)
+For more information and reporting bugs: https://github.com/CrysoK/cli/`)
 }
 
 func helpConfig() {

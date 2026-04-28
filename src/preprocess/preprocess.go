@@ -50,7 +50,7 @@ func applyPatches(input string, patches []Patch) string {
 }
 
 func readRemoteCssMap(tag string, cssTranslationMap *map[string]string) error {
-	var cssMapURL string = "https://raw.githubusercontent.com/spicetify/cli/" + tag + "/css-map.json"
+	var cssMapURL string = "https://raw.githubusercontent.com/CrysoK/cli/" + tag + "/css-map.json"
 	cssMapResp, err := http.Get(cssMapURL)
 	if err != nil {
 		return err
@@ -1141,7 +1141,7 @@ func FetchLatestTagMatchingVersion(version string) (string, error) {
 	if version == "Dev" {
 		return "Dev", nil
 	}
-	req, err := http.NewRequest("GET", "https://api.github.com/repos/spicetify/cli/releases", nil)
+	req, err := http.NewRequest("GET", "https://api.github.com/repos/CrysoK/cli/releases", nil)
 	if err != nil {
 		return "", err
 	}
